@@ -19,6 +19,8 @@
         <td>{{member?.jobTitle}}</td>
         <td>{{member?.team}}</td>
         <td>{{member?.status}}</td>
+        <td><button type="submit" class="btn btn-secondary btn-small pull-right" (click)="editMemberByID(member.id)">Update Member</button></td>
+        <td><button id="deleteMemberButton" class="btn btn-danger btn-small pull-right" (click)="deleteMemberById(member.id)">Delete Member</button></td>
       </tr>
     </tbody>
   </table>

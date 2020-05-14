@@ -7,7 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AppService {
-  api = 'http://localhost:8000/api';
+  api = 'http://localhost:3000';
   username: string;
 
   constructor(private http: HttpClient) {}
@@ -23,9 +23,26 @@ export class AppService {
     this.username = name;
   }
 
-  addMember(memberForm) {}
+  addMember(memberForm) {
+    return this.http.post(`${this.api}/members`, memberForm).pipe(catchError(this.handleError));
+    console.log("post");
+  }
 
-  getTeams() {}
+  getTeams() {
+    return this.http
+      .get(`${this.api}/teams`)
+      .pipe(catchError(this.handleError));
+  }
+
+  getMembersByID(id: string) { 
+    return this.http.get(`${this.api}/members/${id}`).pipe(catchError(this.handleError));
+    // return this.http.get(`${this.api}/members/${Paramid}`).pipe(catchError(this.handleError));
+
+  }
+
+  deleteMember(memberId: number) {
+    return this.http.delete(`${this.api}/members/` + memberId).pipe(catchError(this.handleError));
+  }
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
