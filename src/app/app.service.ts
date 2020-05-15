@@ -36,8 +36,10 @@ export class AppService {
 
   getMembersByID(id: string) { 
     return this.http.get(`${this.api}/members/${id}`).pipe(catchError(this.handleError));
-    // return this.http.get(`${this.api}/members/${Paramid}`).pipe(catchError(this.handleError));
+  }
 
+  updateMember(memberForm) {
+    return this.http.put(`${this.api}/members/${memberForm.id}`, memberForm).pipe(catchError(this.handleError));
   }
 
   deleteMember(memberId: number) {

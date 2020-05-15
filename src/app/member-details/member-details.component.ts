@@ -50,9 +50,7 @@ export class MemberDetailsComponent implements OnInit, OnChanges {
 
     if( this.id != 0 ) { 
       // update
-
-
-      // load the model to prepopulate the form
+      // load the model to prepopulate the form and update
       this.appService.getMembersByID(this.id).subscribe( member => {
 
         this.memberModel = {
@@ -60,12 +58,11 @@ export class MemberDetailsComponent implements OnInit, OnChanges {
           lastName: member.lastName,
           jobTitle: member.jobTitle,
           team: member.team,
-          status: member.status
+          status: member.status,
         }
+
       });
     }
-
-    // else => if ID=0 then no need to populate the form since we are adding a new member 
 
   }
 
@@ -75,10 +72,21 @@ export class MemberDetailsComponent implements OnInit, OnChanges {
   onSubmit(form: FormGroup) {
     this.memberModel = form.value;
 
-    this.appService.addMember(this.memberModel).subscribe(response => {
-      console.log('navigating to members');
-      this.router.navigate(["members"]);
-    });
+    if( this.id != 0) {
+      console.log("updating");
+      this.memberModel['id'] = this.id;
+      console.log(this.memberModel);
+      this.appService.updateMember(this.memberModel).subscribe(result => {
+        this.router.navigate(['/members']);
+      });
+    }
+    else {
+      console.log("addinig a member");
+      this.appService.addMember(this.memberModel).subscribe(response => {
+        console.log('navigating to members');
+        this.router.navigate(["members"]);
+      });
+    }
 
   }
 
