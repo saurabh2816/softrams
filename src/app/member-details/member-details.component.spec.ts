@@ -216,10 +216,11 @@ describe('MemberDetailsComponent', () => {
   });
 
   fixture.detectChanges();
-  // expect(appService.getTeams).toHaveBeenCalled();
+
+  expect(appService.getTeams).toHaveBeenCalled();
   // expect(component.teams).toEqual(dummyTeams);
   // expect(component.action).toEqual('Edit');
-  expect(appService.getMembers).toHaveBeenCalled();
+  // expect(appService.getMembers).toHaveBeenCalled();
 
   // expect(appService.getMember).toHaveBeenCalled();
 //   });
