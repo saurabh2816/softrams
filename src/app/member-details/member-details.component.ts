@@ -39,29 +39,42 @@ export class MemberDetailsComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    // fetch teams to populate dropdown
-    this.appService.getTeams().subscribe(teams => (this.teams = teams));
 
-    this.id = this.route.snapshot.params["id"];
+    if (!this.appService.username) {
+      this.router.navigate(['/login']);
+    }
 
-    // check if page contains an ID
-    // if ID!=0 => update; 
-    // if ID==0, addMember()
-
-    if( this.id != 0 ) { 
-      // update
-      // load the model to prepopulate the form and update
-      this.appService.getMembersByID(this.id).subscribe( member => {
-
-        this.memberModel = {
-          firstName: member.firstName,
-          lastName: member.lastName,
-          jobTitle: member.jobTitle,
-          team: member.team,
-          status: member.status,
-        }
-
-      });
+    else {
+  
+      // fetch teams to populate dropdown
+      this.appService.getTeams().subscribe(teams => {
+        this.teams = teams;
+        console.log("teams: ", this.teams);
+      }
+        );
+      
+      this.id = this.route.snapshot.params["id"];
+  
+      // check if page contains an ID
+      // if ID!=0 => update; 
+      // if ID==0, addMember()
+  
+      if( this.id != 0 ) { 
+        // update
+        // load the model to prepopulate the form and update
+        this.appService.getMembersByID(this.id).subscribe( member => {
+  
+          this.memberModel = {
+            firstName: member.firstName,
+            lastName: member.lastName,
+            jobTitle: member.jobTitle,
+            team: member.team,
+            status: member.status,
+          }
+  
+        });
+      }
+      
     }
 
   }
@@ -74,14 +87,15 @@ export class MemberDetailsComponent implements OnInit, OnChanges {
 
     if( this.id != 0) {
       console.log("updating");
+      console.log("member model" , this.memberModel);
       this.memberModel['id'] = this.id;
-      console.log(this.memberModel);
+      
       this.appService.updateMember(this.memberModel).subscribe(result => {
         this.router.navigate(['/members']);
       });
     }
     else {
-      console.log("addinig a member");
+      console.log("adding a member");
       this.appService.addMember(this.memberModel).subscribe(response => {
         console.log('navigating to members');
         this.router.navigate(["members"]);

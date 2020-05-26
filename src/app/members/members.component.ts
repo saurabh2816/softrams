@@ -13,10 +13,11 @@ export class MembersComponent implements OnInit {
 
   ngOnInit() {
 
-    // redirect if user not logged in
-    if(!this.appService.username)   
-      this.router.navigateByUrl('/login');
+    if (!this.appService.username) {
+      this.router.navigate(['/login']);
+    }
 
+    else
     this.appService.getMembers().subscribe(members => (this.members = members));
   }
 
