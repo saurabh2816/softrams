@@ -39,7 +39,6 @@ export class MemberDetailsComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-
     if (!this.appService.username) {
       this.router.navigate(['/login']);
     }
@@ -47,11 +46,7 @@ export class MemberDetailsComponent implements OnInit, OnChanges {
     else {
   
       // fetch teams to populate dropdown
-      this.appService.getTeams().subscribe(teams => {
-        this.teams = teams;
-        console.log("teams: ", this.teams);
-      }
-        );
+      this.appService.getTeams().subscribe((teams) => this.teams = teams);
       
       this.id = this.route.snapshot.params["id"];
   
@@ -89,7 +84,7 @@ export class MemberDetailsComponent implements OnInit, OnChanges {
       console.log("updating");
       console.log("member model" , this.memberModel);
       this.memberModel['id'] = this.id;
-      
+
       this.appService.updateMember(this.memberModel).subscribe(result => {
         this.router.navigate(['/members']);
       });
