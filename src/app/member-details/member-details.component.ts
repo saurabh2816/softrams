@@ -81,8 +81,6 @@ export class MemberDetailsComponent implements OnInit, OnChanges {
     this.memberModel = form.value;
 
     if( this.id != 0) {
-      console.log("updating");
-      console.log("member model" , this.memberModel);
       this.memberModel['id'] = this.id;
 
       this.appService.updateMember(this.memberModel).subscribe(result => {
@@ -90,9 +88,7 @@ export class MemberDetailsComponent implements OnInit, OnChanges {
       });
     }
     else {
-      console.log("adding a member");
       this.appService.addMember(this.memberModel).subscribe(response => {
-        console.log('navigating to members');
         this.router.navigate(["members"]);
       });
     }

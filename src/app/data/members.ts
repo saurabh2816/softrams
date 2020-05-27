@@ -1,5 +1,5 @@
 export class Member {
-    _id: string = '-1';
+    id: string = '';
     firstName: string = '';
     lastName: string = '';
     jobTitle: string = '';
