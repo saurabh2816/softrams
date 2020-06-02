@@ -120,6 +120,12 @@ describe('MemberDetailsComponent', () => {
     expect(submitBtn).toBeDefined();
   })
 
+  it('submit button is disabled', () => {
+    fixture.detectChanges();
+    let submitButton = fixture.debugElement.query(By.css('.memberbutton')).nativeElement;
+    expect(submitButton.disabled).toBeTruthy();
+  })
+
   it('should return teams data', () => {
     appServiceSpy.getTeams().subscribe(res => {
       component.teams = res;
