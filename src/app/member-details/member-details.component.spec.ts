@@ -96,7 +96,7 @@ describe('MemberDetailsComponent', () => {
     expect(component.memberForm.valid).toBeFalsy();
   })
 
-  it('form is valid when all fields are present', () => {
+  it('fowrm is valid when all fields are present', () => {
     component.memberForm.controls['firstName'].setValue('Softrams');
     component.memberForm.controls['lastName'].setValue('Racing');
     component.memberForm.controls['jobTitle'].setValue('developer');
@@ -118,12 +118,6 @@ describe('MemberDetailsComponent', () => {
     expect(team).toBeDefined();
     expect(status).toBeDefined();
     expect(submitBtn).toBeDefined();
-  })
-
-  it('submit button is disabled', () => {
-    fixture.detectChanges();
-    let submitButton = fixture.debugElement.query(By.css('.memberbutton')).nativeElement;
-    expect(submitButton.disabled).toBeTruthy();
   })
 
   it('should return teams data', () => {
